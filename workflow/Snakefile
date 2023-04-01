@@ -1,0 +1,33 @@
+import datetime
+import re
+import os
+import pandas as pd
+
+wildcard_constraints:
+  chr = "chr[0-9X]{1,2}"
+
+max_time = 240
+
+def get_mem_mb(wildcards, threads):
+    return threads * 3420
+
+def get_permute_time(wildcards, threads):
+    return min(max_time, 0.25*((int(wildcards.draws)/300)*3600)/int(threads))
+
+metadata_daf = pd.read_csv('resources/gwas/metadata/metadata.tsv', sep = '\t')
+
+preprocessed_gwas = ["ra",
+                     "sle",
+                     "crohns",
+                     "uc-delange",
+                     "t1d-cooper",
+                     ]
+
+include: 'rules/wildcard_constraints.smk'
+include: 'rules/1000g_reference.smk'
+include: 'rules/gwas.smk'
+include: 'rules/sumher.smk'
+include: 'rules/export.smk'
+
+# Ancillary Python code
+include: 'rules/python/export.py'
