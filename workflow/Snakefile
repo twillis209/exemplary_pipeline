@@ -23,6 +23,25 @@ preprocessed_gwas = ["ra",
                      "t1d-cooper",
                      ]
 
+traits = ["asthma-ex",
+"osteo-ex",
+"hypothy",
+"leio-ex",
+"crohns",
+"cardiomyo-ex",
+"derm-ecz",
+"endomet-ex",
+"ibs-ex",
+"ra",
+"sle",
+"t1d",
+"uc-delange",
+"glaucoma-ex",
+"hyperchol-ex",
+"cholelith-ex",
+"md-ex",
+"rhin-ex"]
+
 include: 'rules/wildcard_constraints.smk'
 include: 'rules/1000g_reference.smk'
 include: 'rules/gwas.smk'

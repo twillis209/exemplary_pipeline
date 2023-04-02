@@ -6,4 +6,7 @@ wildcard_constraints:
     variant_set = "all|sans_mhc",
     variant_type = "all|snps_only",
     window_size = "\\d+kb",
-    r2 = "0_\\d+"
+    r2 = "0_\\d+",
+    trait_A = "[\w-]+",
+    trait_B = "[\w-]+"
+

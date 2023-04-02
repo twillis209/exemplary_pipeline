@@ -1,0 +1,10 @@
+name: exemplary_pipeline
+channels:
+- conda-forge
+- bioconda
+dependencies:
+- python >= 3.11
+- bioconda/noarch::snakemake >= 7.25.0
+- pandas
+- scipy
+- ipython >= 8.10.0
