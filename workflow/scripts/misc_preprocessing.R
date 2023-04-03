@@ -10,4 +10,8 @@ for(x in snakemake@params[['columns_to_drop']]) {
   }
 }
 
+if(snakemake@wildcards[['trait']] == 'ra') {
+  setnames(sum_stats_dat, c('Chr', 'Position(hg19)', 'A1', 'A2', 'OR(A1)', 'P-val'), c('CHR', 'BP', 'ALT', 'REF', 'OR', 'P'))
+}
+
 fwrite(sum_stats_dat, file = snakemake@output[[1]], sep = '\t')

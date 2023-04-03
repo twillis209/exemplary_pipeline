@@ -3,3 +3,5 @@ resources
 submit_with_scheduling.sh
 logs
 results
+tmp
+*.RData

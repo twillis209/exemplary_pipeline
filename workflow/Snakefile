@@ -22,9 +22,9 @@ preprocessed_gwas = ["ra",
                      "uc-delange",
                      "t1d-cooper",
                      ]
-
-traits = ["asthma-ex",
-"osteo-ex",
+ 
+traits = ["asthma-ex", # DONE
+"osteo-ex", # DONE
 "hypothy",
 "leio-ex",
 "crohns",
@@ -37,7 +37,7 @@ traits = ["asthma-ex",
 "t1d",
 "uc-delange",
 "glaucoma-ex",
-"hyperchol-ex",
+"hyperchol-ex", # DONE
 "cholelith-ex",
 "md-ex",
 "rhin-ex"]

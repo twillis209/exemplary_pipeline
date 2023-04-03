@@ -22,7 +22,7 @@ default-resources:
   - tmpdir='tmp'
 group-components:
   - 1000g=16
-  - gwas=8
+  - gwas=1
   - gps=24
   - permute=1
   - sumher=12
