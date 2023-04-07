@@ -1,6 +1,8 @@
 import pandas as pd
 import re
 
+localrules: download_1000g_hg38_manifest, process_1000g_hg38_manifest, download_1000g_hg38_sample_metadata
+
 rule download_1000g_hg38_manifest:
     output:
         temp("resources/1000g/hg38/manifest.tsv")

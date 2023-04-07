@@ -19,12 +19,9 @@ cores: 16
 default-resources:
   - runtime=5
   - mem_mb=3420
-  - tmpdir='tmp'
 group-components:
   - 1000g=16
   - gwas=1
-  - gps=24
-  - permute=1
   - sumher=12
 keep-going: True
 use-conda: False

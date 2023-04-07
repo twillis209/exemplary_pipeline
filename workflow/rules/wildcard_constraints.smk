@@ -9,4 +9,3 @@ wildcard_constraints:
     r2 = "0_\\d+",
     trait_A = "[\w-]+",
     trait_B = "[\w-]+"
-
