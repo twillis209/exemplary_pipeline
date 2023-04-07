@@ -47,6 +47,7 @@ include: 'rules/1000g_reference.smk'
 include: 'rules/gwas.smk'
 include: 'rules/sumher.smk'
 include: 'rules/export.smk'
+include: 'rules/gwas_pipeline.smk'
 
 # Ancillary Python code
 include: 'rules/python/export.py'
