@@ -4,7 +4,7 @@ trait_pairs = list(chain(*[[f"{traits[i]}_and_{traits[j]}" for j in range(i+1,le
 
 rule run_gwas_pipeline_on_traits:
     input:
-        [f"results/processed_gwas/{x}_post_pipeline.tsv.gz" for x in traits]
+        [f"results/processed_gwas/{x}.tsv.gz" for x in traits]
 
 rule run_sumher_on_traits:
     input:

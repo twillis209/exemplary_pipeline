@@ -1,5 +1,5 @@
 wildcard_constraints:
-    input_name = "[A-Za-z\+-]+"
+    input_name = "[A-Za-z0-9\+-]+"
 
 extraneous_columns = ["af_cases_meta_hq", "af_controls_meta_hq", "beta_meta_hq", "se_meta_hq", "pval_meta_hq", "pval_heterogeneity_hq", "af_cases_meta", "af_controls_meta", "beta_meta", "se_meta", "pval_meta", "pval_heterogeneity", "af_cases_AFR", "af_cases_AMR", "af_cases_CSA", "af_cases_EAS", "af_cases_EUR", "af_cases_MID", "af_controls_AFR", "af_controls_AMR", "af_controls_CSA", "af_controls_EAS", "af_controls_EUR", "af_controls_MID", "beta_AFR", "beta_AMR", "beta_CSA", "beta_EAS", "beta_MID", "se_AFR", "se_AMR", "se_CSA", "se_EAS", "se_MID", "pval_AFR", "pval_AMR", "pval_CSA", "pval_EAS", "pval_MID", "low_confidence_AFR", "low_confidence_AMR", "low_confidence_CSA", "low_confidence_EAS", "low_confidence_EUR", "low_confidence_MID", "nearest_genes"]
 
@@ -9,8 +9,12 @@ rule rehead:
     output:
         temp("results/gwas_pipeline/reheaded/{input_name}.tsv.gz")
     params:
-        columns_to_drop = extraneous_columns
+        columns_to_drop = extraneous_columns,
+        pan_ukb_p_column = 'pval_EUR',
+        pan_ukb_beta_column = 'beta_EUR',
+        pan_ukb_se_column = 'se_EUR'
     threads: 8
+    group: "gwas"
     script: "../scripts/gwas_pipeline/rehead.R"
 
 rule check_for_minimal_column_set:
@@ -19,6 +23,7 @@ rule check_for_minimal_column_set:
     output:
         temp("results/gwas_pipeline/reheaded/min_col_set/{input_name}.tsv.gz")
     threads: 8
+    group: "gwas"
     script: "../scripts/gwas_pipeline/check_for_minimal_column_set.R"
 
 rule fix_alleles_and_id:
@@ -27,6 +32,7 @@ rule fix_alleles_and_id:
     output:
         temp("results/gwas_pipeline/reheaded/min_col_set/fixed_alleles/{input_name}.tsv.gz")
     threads: 8
+    group: "gwas"
     script: "../scripts/gwas_pipeline/check_for_minimal_column_set.R"
 
 rule recalculate_missing_summary_statistics:
@@ -35,6 +41,7 @@ rule recalculate_missing_summary_statistics:
     output:
         temp("results/gwas_pipeline/reheaded/min_col_set/fixed_alleles/recalc_sumstats/{input_name}.tsv.gz")
     threads: 8
+    group: "gwas"
     script: "../scripts/gwas_pipeline/recalculate_missing_sumstats.R"
 
 rule detect_build:
@@ -44,6 +51,7 @@ rule detect_build:
     output:
         temp("results/gwas_pipeline/build_detection/{input_name}.tsv")
     threads: 8
+    group: "gwas"
     script: "../scripts/gwas_pipeline/detect_build.R"
 
 rule create_bed_file_for_liftover:
@@ -52,6 +60,7 @@ rule create_bed_file_for_liftover:
     output:
         temp("results/gwas_pipeline/reheaded/min_col_set/fixed_alleles/recalc_sumstats/liftover/{input_name}.bed")
     threads: 8
+    group: "gwas"
     script: "../scripts/gwas_pipeline/create_bedfile.R"
 
 rule prepare_file_for_liftover:
@@ -62,6 +71,7 @@ rule prepare_file_for_liftover:
         prepared = temp("results/gwas_pipeline/reheaded/min_col_set/fixed_alleles/recalc_sumstats/liftover/{input_name}_prepared.tsv.gz"),
         build = temp("results/gwas_pipeline/reheaded/min_col_set/fixed_alleles/recalc_sumstats/liftover/{input_name}_build.txt")
     threads: 8
+    group: "gwas"
     script: "../scripts/gwas_pipeline/prepare_file_for_liftover.R"
 
 rule liftover:
@@ -73,6 +83,7 @@ rule liftover:
         lifted = temp("results/gwas_pipeline/reheaded/min_col_set/fixed_alleles/recalc_sumstats/liftover/{input_name}_lifted.bed"),
         unlifted = temp("results/gwas_pipeline/reheaded/min_col_set/fixed_alleles/recalc_sumstats/liftover/{input_name}_unlifted.bed")
     threads: 1
+    group: "gwas"
     run:
         with open(input.build, 'r') as fh:
             assembly = fh.readline().strip()
@@ -89,4 +100,5 @@ rule merge_liftovered_rows_with_summary_statistics:
     threads: 8
     output:
         "results/processed_gwas/{input_name}.tsv.gz"
+    group: "gwas"
     script: "../scripts/gwas_pipeline/merge_liftovered_rows_with_sumstats.R"
