@@ -20,25 +20,10 @@ rule download_gwas:
         fi;
         """
 
-rule recalculate_p_values:
-    input:
-        ancient("results/processed_gwas/{trait}.tsv.gz")
-    output:
-        "results/processed_gwas/{trait,[^\_]+}_recalculated_p.tsv.gz"
-    params:
-        beta_col = 'BETA',
-        se_col = 'SE',
-        p_col = 'P'
-    threads: 8
-    resources:
-        mem_mb = get_mem_mb
-    group: "gwas"
-    script: "../scripts/recalculate_p_values.R"
-
 rule join_pair_gwas:
     input:
-        A = ancient("results/processed_gwas/{trait_A}_recalculated_p.tsv.gz"),
-        B = ancient("results/processed_gwas/{trait_B}_recalculated_p.tsv.gz")
+        A = ancient("results/processed_gwas/{trait_A}.tsv.gz"),
+        B = ancient("results/processed_gwas/{trait_B}.tsv.gz")
     output:
         AB = temp("results/merged_gwas/{trait_A}_and_{trait_B}/{variant_set}/merged.tsv.gz"),
     threads: 8
