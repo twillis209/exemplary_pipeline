@@ -2,14 +2,19 @@ library(data.table)
 setDTthreads(snakemake@threads)
 
 dat <- fread(snakemake@input[['sumstats']], header = T, sep = '\t')
-bedfile <- fread(snakemake@input[['lifted']], header = F, sep = '\t')
 
-names(bedfile) <- c('CHR38', 'BP38', 'BP2', 'SNPID')
+if('CHR38' %in% names(dat) & 'BP38' %in% names(dat)) {
+  dat[, CHR38 := stringr::str_remove(CHR38, 'chr')]
 
-bedfile <- bedfile[, .(SNPID, CHR38, BP38)]
+  fwrite(dat, file = snakemake@output[[1]], sep = '\t')
+} else {
+  bedfile <- fread(snakemake@input[['lifted']], header = F, sep = '\t')
 
-dat <- merge(dat, bedfile, by = 'SNPID')
+  names(bedfile) <- c('CHR38', 'BP38', 'BP2', 'SNPID')
 
-dat[, CHR38 := stringr::str_remove(CHR38, 'chr')]
+  bedfile <- bedfile[, .(SNPID, CHR38, BP38)]
 
-fwrite(dat, file = snakemake@output[[1]], sep = '\t')
+  dat[, CHR38 := stringr::str_remove(CHR38, 'chr')]
+
+  fwrite(dat, file = snakemake@output[[1]], sep = '\t')
+}

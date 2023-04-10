@@ -92,13 +92,18 @@ rule liftover:
 
         if assembly == 'hg19':
             shell("liftOver {input.bed_file} {input.hg19_chainfile} {output.lifted} {output.unlifted}")
+        elif assembly == 'hg38':
+            print("Already in hg38, copying...")
+            shell("cp {input.bed_file} {output.lifted}")
+            shell("touch {output.unlifted}")
         else:
             raise Exception('Can only liftover from hg19 at the moment')
 
 rule merge_liftovered_rows_with_summary_statistics:
     input:
         lifted = "results/gwas_pipeline/reheaded/fixed_alleles/min_col_set/recalc_sumstats/liftover/{input_name}_lifted.bed",
-        sumstats = "results/gwas_pipeline/reheaded/fixed_alleles/min_col_set/recalc_sumstats/liftover/{input_name}_prepared.tsv.gz"
+        sumstats = "results/gwas_pipeline/reheaded/fixed_alleles/min_col_set/recalc_sumstats/liftover/{input_name}_prepared.tsv.gz",
+        build = "results/gwas_pipeline/reheaded/fixed_alleles/min_col_set/recalc_sumstats/liftover/{input_name}_build.txt"
     threads: 8
     output:
         "results/processed_gwas/{input_name}.tsv.gz"
