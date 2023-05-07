@@ -14,7 +14,7 @@ if('CHR38' %in% names(dat) & 'BP38' %in% names(dat)) {
 
   bedfile <- bedfile[, .(SNPID, CHR38, BP38)]
 
-  dat[, CHR38 := stringr::str_remove(CHR38, 'chr')]
+  dat[, CHR19 := stringr::str_remove(CHR19, 'chr')]
 
   fwrite(dat, file = snakemake@output[[1]], sep = '\t')
 }

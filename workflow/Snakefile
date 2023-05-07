@@ -3,6 +3,8 @@ import re
 import os
 import pandas as pd
 
+configfile: "config/config.yaml"
+
 wildcard_constraints:
   chr = "chr[0-9X]{1,2}"
 
@@ -22,7 +24,7 @@ preprocessed_gwas = ["ra",
                      "uc-delange",
                      "t1d-cooper",
                      ]
- 
+
 traits = ["asthma-ex", # DONE
 "osteo-ex", # DONE
 "hypothy",
@@ -47,7 +49,20 @@ include: 'rules/1000g_reference.smk'
 include: 'rules/gwas.smk'
 include: 'rules/sumher.smk'
 include: 'rules/export.smk'
-include: 'rules/gwas_pipeline.smk'
 
 # Ancillary Python code
 include: 'rules/python/export.py'
+
+module gwas_pipeline:
+    snakefile: github("twillis209/GWAS_tools", path = "workflow/Snakefile", branch = "snakemake")
+    config: config["GWAS_tools"]
+
+use rule * from gwas_pipeline
+
+use rule rehead from gwas_pipeline as rehead with:
+    input:
+        "resources/gwas/{input_name}.tsv.gz"
+
+use rule merge_liftovered_rows_with_summary_statistics from gwas_pipeline as merge_liftovered_rows_with_summary_statistics with:
+    output:
+        "results/processed_gwas/{input_name}.tsv.gz"

@@ -21,8 +21,8 @@ default-resources:
   - mem_mb=3420
 group-components:
   - 1000g=16
-  - gwas=1
-  - sumher=12
+  - gwas=12
+  - sumher=1
 keep-going: True
 use-conda: False
 scheduler: greedy

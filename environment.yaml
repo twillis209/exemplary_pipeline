@@ -8,3 +8,7 @@ dependencies:
 - pandas
 - scipy
 - ipython >= 8.10.0
+- r-base >= 4.2.0
+- r-data.table >= 1.14.8
+- r-magrittr
+- r-stringr
