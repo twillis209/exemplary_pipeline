@@ -102,6 +102,7 @@ rule process_sum_stats:
         mem_mb = get_mem_mb,
         tmpdir = "tmp"
     group: "sumher"
+    conda: "../envs/exemplary_pipeline.yaml"
     script:
         "../scripts/process_sum_stats.R"
 

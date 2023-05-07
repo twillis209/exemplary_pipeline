@@ -41,6 +41,8 @@ rule join_pair_gwas:
         se_col = 'SE',
         id_col = 'SNPID'
     group: "gwas"
+    conda: "../envs/exemplary_pipeline.yaml"
+    conda: "../envs/exemplary_pipeline.yaml"
     script:
         "../scripts/join_pair_gwas_stats.R"
 
@@ -62,4 +64,6 @@ rule make_plink_ranges:
     resources:
         mem_mb = get_mem_mb
     group: "gwas"
+    conda: "../envs/exemplary_pipeline.yaml"
+    conda: "../envs/exemplary_pipeline.yaml"
     script: '../scripts/make_plink_ranges.R'

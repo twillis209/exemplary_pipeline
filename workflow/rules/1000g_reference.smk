@@ -81,6 +81,8 @@ rule make_hg38_fam_files:
          amr = "resources/1000g/hg38/amr.fam",
          eas = "resources/1000g/hg38/eas.fam",
          sas = "resources/1000g/hg38/sas.fam"
+     conda: "../envs/exemplary_pipeline.yaml"
+     conda: "../envs/exemplary_pipeline.yaml"
      script:
         "../scripts/get_fam_files.R"
 
