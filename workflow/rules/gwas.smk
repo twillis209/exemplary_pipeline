@@ -42,7 +42,6 @@ rule join_pair_gwas:
         id_col = 'SNPID'
     group: "gwas"
     conda: "../envs/exemplary_pipeline.yaml"
-    conda: "../envs/exemplary_pipeline.yaml"
     script:
         "../scripts/join_pair_gwas_stats.R"
 

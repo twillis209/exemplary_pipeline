@@ -1,6 +1,7 @@
 library(data.table)
 options(warn = 2)
 
+
 gwas_file_a <- snakemake@input[['A']]
 gwas_file_b <- snakemake@input[['B']]
 chr_col <- snakemake@params[['chr_col']]
@@ -15,6 +16,8 @@ output_file <- snakemake@output[['AB']]
 mhc <- snakemake@params[['mhc']]
 join <- snakemake@params[['join']]
 tmpdir <- snakemake@resources[['tmpdir']]
+
+save.image('join_pair_gwas_stats.RData')
 
 setDTthreads(snakemake@threads)
 
@@ -32,11 +35,11 @@ dat_b[, (chr_col) := as.character(get(chr_col))]
 dat_b <- na.omit(dat_b)
 
 if(join == 'inner') {
-  merged_dat <- merge(dat_a, dat_b, by = c(chr_col, bp_col), suffixes = c('.A', '.B'))
+  merged_dat <- as.data.table(merge(dat_a, dat_b, by = c(chr_col, bp_col), suffixes = c('.A', '.B')))
 } else if(join == 'left') {
-  merged_dat <- merge(dat_a, dat_b, all.x = T, by = c(chr_col, bp_col), suffixes = c('.A', '.B'))
+  merged_dat <- as.data.table(merge(dat_a, dat_b, all.x = T, by = c(chr_col, bp_col), suffixes = c('.A', '.B')))
 } else if(join == 'right') {
-  merged_dat <- merge(dat_a, dat_b, all.y = T, by = c(chr_col, bp_col), suffixes = c('.A', '.B'))
+  merged_dat <- as.data.table(merge(dat_a, dat_b, all.y = T, by = c(chr_col, bp_col), suffixes = c('.A', '.B')))
 } else {
   stop(sprintf("Unrecognised join param: %s", join))
 }
@@ -52,14 +55,11 @@ alt_a <- paste0(alt_col, '.A')
 alt_b <- paste0(alt_col, '.B')
 
 # Handle flipped alleles
-merged_dat <- merged_dat[
-(ref_a == ref_b & alt_a == alt_b) |
-(ref_a == alt_b & alt_a == ref_b),
-env = list(ref_a = ref_a, ref_b = ref_b, alt_a = alt_a, alt_b = alt_b)
-]
+merged_dat <- merged_dat[(get(ref_a) == get(ref_b) & get(alt_a) == get(alt_b)) | (get(ref_a) == get(alt_b) & get(alt_a) == get(ref_b))]
 
-merged_dat[(ref_a == alt_b & alt_a == ref_b), beta_col := -beta_col,
-           env = list(ref_a = ref_a, ref_b = ref_b, alt_a = alt_a, alt_b = alt_b, beta_col = paste0(beta_col, '.B'))]
+b_beta_col <- paste(beta_col, '.B')
+
+merged_dat[(get(ref_a) == get(alt_b) & get(alt_a) == get(ref_b)), b_beta_col := -get(b_beta_col)]
 
 merged_dat[, c(ref_b, alt_b) := NULL]
 setnames(merged_dat, c(ref_a, alt_a), c(ref_col, alt_col))

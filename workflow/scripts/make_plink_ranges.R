@@ -16,7 +16,7 @@ tmpdir <- snakemake@resources[['tmpdir']]
 
 gwas_dat <- fread(gwas_file, sep = '\t', header = T, select = c(chr_col, bp_col, ref_col, alt_col), tmpdir = tmpdir)
 
-gwas_dat[ , chr := as.character(chr), env = list(chr = chr_col)]
+gwas_dat[ , chr_col := as.character(get(chr_col))]
 
 for(i in 1:22) {
   bim_dat <- fread(file.path(input_dir, sprintf(bim_regex, i)), sep = '\t', header = F, col.names = c('CHR38', 'ID', 'Cm', 'BP38', 'A1', 'A2'))
