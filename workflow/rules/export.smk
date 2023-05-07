@@ -11,5 +11,7 @@ rule run_sumher_on_traits:
         [f"results/ldak/ldak-thin/{x}/{{variant_set}}/{{variant_type}}/sumher.cors.full" for x in trait_pairs]
     output:
         "results/ldak/ldak-thin/combined/{variant_set}/{variant_type}/compiled_results.tsv"
-    run:
-        compile_sumher_files(input, output[0])
+    conda: "../envs/exemplary_pipeline.yaml"
+    localrule: True
+    script:
+        "rules/python/export.py"

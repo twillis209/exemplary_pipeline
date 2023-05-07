@@ -1,4 +1,3 @@
-from scipy.stats import chi2
 import re
 
 rule subset_variants:

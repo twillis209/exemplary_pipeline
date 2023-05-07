@@ -50,9 +50,6 @@ include: 'rules/gwas.smk'
 include: 'rules/sumher.smk'
 include: 'rules/export.smk'
 
-# Ancillary Python code
-include: 'rules/python/export.py'
-
 module gwas_pipeline:
     snakefile: github("twillis209/GWAS_tools", path = "workflow/Snakefile", branch = "snakemake")
     config: config["GWAS_tools"]

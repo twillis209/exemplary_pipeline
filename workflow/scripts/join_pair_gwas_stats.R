@@ -57,7 +57,7 @@ alt_b <- paste0(alt_col, '.B')
 # Handle flipped alleles
 merged_dat <- merged_dat[(get(ref_a) == get(ref_b) & get(alt_a) == get(alt_b)) | (get(ref_a) == get(alt_b) & get(alt_a) == get(ref_b))]
 
-b_beta_col <- paste(beta_col, '.B')
+b_beta_col <- paste0(beta_col, '.B')
 
 merged_dat[(get(ref_a) == get(alt_b) & get(alt_a) == get(ref_b)), b_beta_col := -get(b_beta_col)]
 

@@ -41,3 +41,6 @@ def compile_sumher_files(input_files, output_file):
         print(x)
 
     pd.DataFrame(d).to_csv(output_file, sep = '\t', index = False)
+
+if __name__ == '__main__':
+    compile_sumher_files(snakemake.input, snakemake.output[0])
