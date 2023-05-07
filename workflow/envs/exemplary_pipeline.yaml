@@ -1,0 +1,12 @@
+name: exemplary_pipeline
+channels:
+- conda-forge
+- bioconda
+dependencies:
+- python >= 3.11
+- pandas
+- scipy
+- r-base >= 4.2.3
+- r-data.table >= 1.14.8
+- r-stringr
+- r-magrittr

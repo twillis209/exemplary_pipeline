@@ -24,7 +24,7 @@ group-components:
   - gwas=12
   - sumher=1
 keep-going: True
-use-conda: False
+use-conda: True
 scheduler: greedy
 rerun-incomplete: True
 dry-run: False
