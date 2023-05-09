@@ -1,7 +1,6 @@
 library(data.table)
 options(warn = 2)
 
-
 gwas_file_a <- snakemake@input[['A']]
 gwas_file_b <- snakemake@input[['B']]
 chr_col <- snakemake@params[['chr_col']]
@@ -16,8 +15,6 @@ output_file <- snakemake@output[['AB']]
 mhc <- snakemake@params[['mhc']]
 join <- snakemake@params[['join']]
 tmpdir <- snakemake@resources[['tmpdir']]
-
-save.image('join_pair_gwas_stats.RData')
 
 setDTthreads(snakemake@threads)
 

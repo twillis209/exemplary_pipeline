@@ -43,7 +43,6 @@ rule download_1000g_hg38_genotype_data:
 
         md5sum_expected = manifest[manifest.Chr == wildcards.chr.replace('chr', '')].Checksum.values[0]
 
-        #shell("md5sum {output}")
         md5sum_actual = shell("md5sum {output}", read = True).split(' ')[0]
 
         if md5sum_expected != md5sum_actual:

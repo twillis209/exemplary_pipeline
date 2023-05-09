@@ -30,7 +30,7 @@ rerun-incomplete: True
 dry-run: False
 verbose: False
 nolock: True
-notemp: False
+notemp: True
 rerun-triggers: 'mtime'
 max-status-checks-per-second: 1
 latency-wait: 20

@@ -3,27 +3,58 @@ def get_url(w):
 
     return url
 
+def get_expected_md5sum(w):
+    md5sum = metadata_daf.loc[metadata_daf['abbrv'] == w.trait, 'md5'].values[0]
+
+    return md5sum
+
 rule download_gwas:
     output:
         "resources/gwas/{trait}.tsv.gz"
     params:
-        url = get_url
+        url = get_url,
+        expected_md5sum = get_expected_md5sum
+    # NB: We parallelise compression where necessary
+    threads: lambda w: 8 if 'tsv.bgz' in get_url(w) else 1
     resources:
-        runtime = 8
+        runtime = 15
     group: "gwas"
-    shell:
-        """
-        if [ {params.url} ]; then
-            wget -O {output} {params.url}
-        else
-            exit -1 
-        fi;
-        """
+    run:
+        if '.tsv.bgz' in params.url:
+            temp_bgz_output = output[0].replace('tsv.gz', 'tsv.bgz')
+            shell(f"wget -O {temp_bgz_output} {params.url}")
+
+            actual_md5sum = shell(f"md5sum {temp_bgz_output}", read = True).split(' ')[0]
+
+            print(params.expected_md5sum)
+            print(actual_md5sum)
+
+            if params.expected_md5sum != actual_md5sum:
+                raise Exception(f"md5sums do not match for {wildcards.trait}")
+            else:
+                print("md5sum checked")
+
+            temp_tsv_output = output[0].replace('tsv.gz', 'tsv')
+            shell(f"bgzip -@ {threads} -d {temp_bgz_output}")
+            shell(f"pigz -p {threads} {temp_tsv_output}")
+        # TODO elif handle T1D, which is apparently not compressed
+        else:
+            shell("wget -O {output} {params.url}")
+
+            actual_md5sum = shell("md5sum {output}", read = True).split(' ')[0]
+
+            print(params.expected_md5sum)
+            print(actual_md5sum)
+
+            if params.expected_md5sum != actual_md5sum:
+                raise Exception(f"md5sums do not match for {wildcards.trait}")
+            else:
+                print("md5sum checked")
 
 rule join_pair_gwas:
     input:
-        A = ancient("results/processed_gwas/{trait_A}.tsv.gz"),
-        B = ancient("results/processed_gwas/{trait_B}.tsv.gz")
+        A = "results/processed_gwas/{trait_A}.tsv.gz",
+        B = "results/processed_gwas/{trait_B}.tsv.gz"
     output:
         AB = temp("results/merged_gwas/{trait_A}_and_{trait_B}/{variant_set}/merged.tsv.gz"),
     threads: 8

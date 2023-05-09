@@ -1,0 +1,19 @@
+abbrv	First_Author	N0	N1	N	URL	Collection	md5	pretty_name	collection_code
+asthma-ex	PanUKBB	371608	48865	420473	https://pan-ukb-us-east-1.s3.amazonaws.com/sumstats_flat_files/categorical-20002-both_sexes-1111.tsv.bgz	PanUKBB	91303453106859eb9d41d9eeed9dc0c1	asthma	20002_1111
+ibs-ex	PanUKBB	410456	10017	420473	https://pan-ukb-us-east-1.s3.amazonaws.com/sumstats_flat_files/categorical-20002-both_sexes-1154.tsv.bgz	PanUKBB	ddba866e72d0ff0529a83ad5ba975709	IBS	20002_1154
+rhin-ex	PanUKBB	396638	23835	420473	https://pan-ukb-us-east-1.s3.amazonaws.com/sumstats_flat_files/categorical-20002-both_sexes-1387.tsv.bgz	PanUKBB	2ed25f1778cfd01f91409f344ec85992	rhinitis	20002_1387
+osteo-ex	PanUKBB	384982	35491	420473	https://pan-ukb-us-east-1.s3.amazonaws.com/sumstats_flat_files/categorical-20002-both_sexes-1465.tsv.bgz	PanUKBB	6fa2c1e7d253bc7117a0efb7c3ecfcba	osteoarthritis	20002_1465
+leio-ex	FinnGen	105519	18060	123579	https://storage.googleapis.com/finngen-public-data-r5/summary_stats/finngen_R5_CD2_BENIGN_LEIOMYOMA_UTERI.gz	FinnGen_R5	a5114266861e57bc9b95add537a65970	leiomyoma	CD2_BENIGN_LEIOMYOMA_UTERI
+crohns	DeLange	28072	12194	40266	http://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST004001-GCST005000/GCST004132/harmonised/28067908-GCST004132-EFO_0000384.h.tsv.gz	""	7ee7e8b2b89bbdec27fbf11bc9645184	Crohn's	""
+hypothy	FinnGen	192728	26064	218792	https://storage.googleapis.com/finngen-public-data-r5/summary_stats/finngen_R5_E4_HYTHY_AI_STRICT_PURCH.gz	FinnGen_R5	7379955cc90a830659d28d2a8bf15fe1	hypothyroidism	E4_HYTHY_AI_STRICT_PURCH
+cardiomyo-ex	FinnGen	175752	11400	187152	https://storage.googleapis.com/finngen-public-data-r5/summary_stats/finngen_R5_I9_NONISCHCARDMYOP.gz	FinnGen_R5	8a0f92835f9c26b22331f8e0696cfe38	cardiomyopathy	I9_NONISCHCARDMYOP
+derm-ecz	FinnGen	198740	20052	218792	https://storage.googleapis.com/finngen-public-data-r5/summary_stats/finngen_R5_L12_DERMATITISECZEMA.gz	FinnGen_R5	10cc6730c8b4086239d1b9f622940f0e	dermatitis/eczema	L12_DERMATITISECZEMA
+endomet-ex	FinnGen	68969	8288	77257	https://storage.googleapis.com/finngen-public-data-r5/summary_stats/finngen_R5_N14_ENDOMETRIOSIS.gz	FinnGen_R5	7c5e251eda233b85047ed1b23af704c5	endometriosis	N14_ENDOMETRIOSIS
+ra	Okada	43923	14361	58284	http://plaza.umin.ac.jp/~yokada/datasource/files/GWASMetaResults/RA_GWASmeta_European_v2.txt.gz	""	ca5fe1dd8400a6bd620d3a76d8d9bf18	rheumatoid arthritis	""
+sle	Bentham	9066	5201	14267	http://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST003001-GCST004000/GCST003156/harmonised/26502338-GCST003156-EFO_0002690.h.tsv.gz	""	bae52c67bcea4b8e4308eb6f0c45f924	lupus	""
+t1d	Chiou	501368	18942	520310	ftp://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST90014001-GCST90015000/GCST90014023/GCST90014023_buildGRCh38.tsv	""	076d768621fffe469d34db88b021262d	T1D	""
+uc-delange	DeLange	33609	12366	45975	http://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST004001-GCST005000/GCST004133/harmonised/28067908-GCST004133-EFO_0000729.h.tsv.gz	""	f22f8215e49dfd31d1e157a3588a47c6	ulcerative colitis	""
+glaucoma-ex	FinnGen	210201	8591	218792	https://storage.googleapis.com/finngen-public-data-r5/summary_stats/finngen_R5_H7_GLAUCOMA.gz	FinnGen_R5	27012153c5cede699a5392092e2a5a08	glaucoma	H7_GLAUCOMA
+hyperchol-ex	PanUKBB	376397	40851	417248	https://pan-ukb-us-east-1.s3.amazonaws.com/sumstats_flat_files/phecode-272.11-both_sexes.tsv.bgz	PanUKBB	556f40b79e8e83adbc6bb828bcc011d1	hypercholesterolaemia	272.11
+cholelith-ex	PanUKBB	399542	17278	416820	https://pan-ukb-us-east-1.s3.amazonaws.com/sumstats_flat_files/phecode-574.1-both_sexes.tsv.bgz	PanUKBB	d56c2d0a35a9b5cb454408077e355c9f	cholelithiasis	574.10
+md-ex	PanUKBB	404535	3298	407833	https://pan-ukb-us-east-1.s3.amazonaws.com/sumstats_flat_files/phecode-362.29-both_sexes.tsv.bgz	PanUKBB	f037f014712f73bd9f063c7ab31bed46	macular degeneration	362.29
