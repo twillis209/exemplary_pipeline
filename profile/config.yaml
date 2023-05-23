@@ -3,7 +3,7 @@ cluster: "mkdir -p logs/{name} &&
   -J {name}
   -o logs/{name}/%j.out
   -e logs/{name}/%j.err
-  --export ALL,OMP_NUM_THREADS={threads}
+  --export OMP_NUM_THREADS={threads}
   --account MRC-BSU-SL2-CPU 
   --time {resources.runtime}
   --nodes 1
