@@ -95,5 +95,4 @@ rule make_plink_ranges:
         mem_mb = get_mem_mb
     group: "gwas"
     conda: "../envs/exemplary_pipeline.yaml"
-    conda: "../envs/exemplary_pipeline.yaml"
     script: '../scripts/make_plink_ranges.R'

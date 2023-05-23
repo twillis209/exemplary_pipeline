@@ -56,6 +56,7 @@ module gwas_pipeline:
 
 use rule * from gwas_pipeline
 
+
 use rule rehead from gwas_pipeline as rehead with:
     input:
         "resources/gwas/{input_name}.tsv.gz"
