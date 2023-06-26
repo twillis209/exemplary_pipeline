@@ -10,7 +10,7 @@ cluster: "mkdir -p logs/{name} &&
   --ntasks 1
   --cpus-per-task {threads}
   --mail-type FAIL
-  --partition cclake,cclake-himem,skylake-himem,skylake,icelake,icelake-himem
+  --partition cclake
   --parsable"
 # NB: We need the --parsable option to allow the cluster-status script cluster-cancel command to work 
 jobs: 300

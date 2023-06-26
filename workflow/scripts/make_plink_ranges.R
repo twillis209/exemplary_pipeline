@@ -3,6 +3,8 @@ options(warn = 2)
 
 setDTthreads(snakemake@threads)
 
+save.image('make_plink_ranges.RData')
+
 gwas_file <- snakemake@input[['gwas_file']]
 
 input_dir <- snakemake@params[['input_dir']]
@@ -16,14 +18,20 @@ tmpdir <- snakemake@resources[['tmpdir']]
 
 gwas_dat <- fread(gwas_file, sep = '\t', header = T, select = c(chr_col, bp_col, ref_col, alt_col), tmpdir = tmpdir)
 
-gwas_dat[ , chr_col := as.character(get(chr_col))]
+cols_to_convert <- chr_col
+
+gwas_dat[, c(cols_to_convert) := lapply(.SD, as.character), .SDcols = cols_to_convert]
+
+gwas_dat <- na.omit(gwas_dat, cols = c(chr_col, bp_col))
 
 for(i in 1:22) {
   bim_dat <- fread(file.path(input_dir, sprintf(bim_regex, i)), sep = '\t', header = F, col.names = c('CHR38', 'ID', 'Cm', 'BP38', 'A1', 'A2'))
 
-  bim_dat[, CHR38 := as.character(CHR38)]
+  bim_dat[, 'CHR38' := as.character(CHR38)]
+  
+  bim_dat <- na.omit(bim_dat, cols = c(chr_col, bp_col))
 
-  bim_join <- merge(bim_dat, gwas_dat, by.x = c(chr_col, bp_col), by.y = c('CHR38', 'BP38'), sort = F)
+  bim_join <- merge(bim_dat, gwas_dat, by.y = c(chr_col, bp_col), by.x = c('CHR38', 'BP38'), sort = F)
 
   # Make sure alleles match
   bim_join <- bim_join[(get(ref_col) == A1 & get(alt_col) == A2) | (get(ref_col) == A2 & get(alt_col) == A1)]

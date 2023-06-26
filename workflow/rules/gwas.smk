@@ -37,7 +37,6 @@ rule download_gwas:
             temp_tsv_output = output[0].replace('tsv.gz', 'tsv')
             shell(f"bgzip -@ {threads} -d {temp_bgz_output}")
             shell(f"pigz -p {threads} {temp_tsv_output}")
-        # TODO elif handle T1D, which is apparently not compressed
         else:
             shell("wget -O {output} {params.url}")
 
